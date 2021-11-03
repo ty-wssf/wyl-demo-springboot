@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>simple-demo</module>
+        <module>order-demo</module>
     </modules>
 
     <properties>
