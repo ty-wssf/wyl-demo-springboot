@@ -1,0 +1,14 @@
+server:
+  port: 9080
+spring:
+  redis:
+    host: 10.20.10.5
+    port: 6379
+    password: Bcht123
+    lettuce:
+      pool:
+        max-active: 32
+        max-wait: 300
+        max-idle: 16
+        min-idle: 8
+    database: 0
