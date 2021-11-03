@@ -11,6 +11,8 @@
     <modules>
         <module>cache-redis</module>
         <module>spring-statemachine</module>
+        <module>redis-config</module>
+        <module>redis-jedis-config</module>
     </modules>
 
     <properties>
