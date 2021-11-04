@@ -1,0 +1,11 @@
+spring:
+  redis:
+    password: Bcht123
+    cluster:
+      nodes: 10.20.10.5:6379
+      max-redirects: 3
+    jedis:
+      pool:
+        max-idle: 16
+        max-active: 32
+        min-idle: 8
