@@ -17,6 +17,7 @@
         <module>redis-template</module>
         <module>redis-cluster</module>
         <module>redis-ranklist</module>
+        <module>retry-spring</module>
     </modules>
 
     <properties>

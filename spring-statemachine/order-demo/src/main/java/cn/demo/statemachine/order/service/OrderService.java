@@ -4,11 +4,13 @@ import cn.demo.statemachine.order.model.Order;
 import cn.demo.statemachine.order.model.OrderStatus;
 import cn.demo.statemachine.order.model.OrderStatusChangeEvent;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.annotation.OnTransition;
 import org.springframework.statemachine.annotation.WithStateMachine;
+import org.springframework.statemachine.persist.StateMachinePersister;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,6 +31,8 @@ public class OrderService {
 
     @Resource(name = "orderStateMachine")
     private StateMachine<OrderStatus, OrderStatusChangeEvent> orderStateMachine;
+    @Autowired
+    private StateMachinePersister<OrderStatus, OrderStatusChangeEvent, Order> persister;
 
     private volatile long orderId = 1;
     @Getter
@@ -47,7 +51,7 @@ public class OrderService {
         System.out.println("to pay: " + order);
         Message<OrderStatusChangeEvent> msg = MessageBuilder.withPayload(OrderStatusChangeEvent.PAYED)
                 .setHeader("order", order).build();
-        if (!send(msg)) {
+        if (!send(msg, order)) {
             System.out.println("pay error for: " + order);
         }
         return orders.get(orderId);
@@ -58,7 +62,7 @@ public class OrderService {
         System.out.println("to delivery: " + order);
         Message<OrderStatusChangeEvent> msg = MessageBuilder.withPayload(OrderStatusChangeEvent.DELIVERY)
                 .setHeader("order", order).build();
-        if (!send(msg)) {
+        if (!send(msg, order)) {
             System.out.println("delivery error for: " + order);
         }
         return orders.get(orderId);
@@ -69,20 +73,23 @@ public class OrderService {
         System.out.println("to receive: " + order);
         Message<OrderStatusChangeEvent> msg = MessageBuilder.withPayload(OrderStatusChangeEvent.RECEIVED)
                 .setHeader("order", order).build();
-        if (!send(msg)) {
+        if (!send(msg, order)) {
             System.out.println("receive error for: " + order);
         }
         return orders.get(orderId);
     }
 
 
-    private synchronized boolean send(Message<OrderStatusChangeEvent> msg) {
+    private synchronized boolean send(Message<OrderStatusChangeEvent> msg, Order order) {
         boolean ans = false;
         try {
             orderStateMachine.start();
             Thread.sleep(1000);
             System.out.println("-------- start to send: " + msg);
+            // 尝试恢复状态机状态
+            persister.restore(orderStateMachine, order);
             ans = orderStateMachine.sendEvent(msg);
+            persister.persist(orderStateMachine, order);
             System.out.println("-------- send msg over: " + msg + " : " + ans);
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -102,6 +109,12 @@ public class OrderService {
 
     }
 
+    /**
+     * 状态监听器
+     *
+     * @param message
+     * @return
+     */
     @StatesOnTransition(source = OrderStatus.WAIT_PAYMENT, target = OrderStatus.WAIT_DELIVER)
     public boolean payTransition(Message<OrderStatusChangeEvent> message) {
         Order order = (Order) message.getHeaders().get("order");
