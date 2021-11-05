@@ -19,6 +19,7 @@
         <module>redis-ranklist</module>
         <module>spi-factorybean</module>
         <module>retry-spring</module>
+        <module>mybatis-xml</module>
     </modules>
 
     <properties>

@@ -1,0 +1,14 @@
+server:
+  port: 9080
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # mapper-locations相当于XML中的<property name="mapperLocations">用来扫描Mapper层的配置文件，由于我们的配置文件在resources下，所以需要指定classpath:
+  mapper-locations: classpath:mapper/*.xml
+  # type-aliases-package相当与XML中<property name="typeAliasesPackase">别名配置，一般取其下实体类类名作为别名
+  type-aliases-package: cn.demo.boot.mybatis.domain
