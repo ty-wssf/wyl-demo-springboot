@@ -22,6 +22,7 @@
         <module>mybatis-xml</module>
         <module>boot-properties</module>
         <module>boot-properties-multi-env</module>
+        <module>boot-properties-bind</module>
     </modules>
 
     <properties>
