@@ -20,6 +20,8 @@
         <module>spi-factorybean</module>
         <module>retry-spring</module>
         <module>mybatis-xml</module>
+        <module>boot-properties</module>
+        <module>boot-properties-multi-env</module>
     </modules>
 
     <properties>
