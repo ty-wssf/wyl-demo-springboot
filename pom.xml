@@ -23,6 +23,7 @@
         <module>boot-properties</module>
         <module>boot-properties-multi-env</module>
         <module>boot-properties-bind</module>
+        <module>redis-delay-list</module>
     </modules>
 
     <properties>
