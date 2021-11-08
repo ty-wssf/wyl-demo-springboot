@@ -7,6 +7,7 @@ import org.redisson.config.Config;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Configuration
@@ -22,24 +23,21 @@ public class RedissionConfig {
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
-        String url = REDISSON_PREFIX + redisProperties.getHost() + ":" + redisProperties.getPort();
-        // 这里以单台redis服务器为例
-        config.useSingleServer()
-                .setAddress(url)
-                /*.setPassword(redisProperties.getPassword())*/
-                .setDatabase(redisProperties.getDatabase());
-
-        // 实际开发过程中应该为cluster或者哨兵模式，这里以cluster为例
-        //String[] urls = {"127.0.0.1:6379", "127.0.0.2:6379"};
-        //config.useClusterServers()
-        //        .addNodeAddress(urls);
-
-        try {
-            return Redisson.create(config);
-        } catch (Exception e) {
-            log.error("RedissonClient init redis url:[{}], Exception:", url, e);
-            return null;
+        //单节点
+        config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort());
+        if (StringUtils.isEmpty(redisProperties.getPassword())) {
+            config.useSingleServer().setPassword(null);
+        } else {
+            config.useSingleServer().setPassword(redisProperties.getPassword());
         }
+
+        //添加主从配置
+        // config.useMasterSlaveServers().setMasterAddress("").setPassword("").addSlaveAddress(new String[]{"",""});
+
+        // 集群模式配置 setScanInterval()扫描间隔时间，单位是毫秒, //可以用"rediss://"来启用SSL连接
+        // config.useClusterServers().setScanInterval(2000).addNodeAddress("redis://127.0.0.1:7000", "redis://127.0.0.1:7001").addNodeAddress("redis://127.0.0.1:7002");
+
+        return Redisson.create(config);
     }
 
 }

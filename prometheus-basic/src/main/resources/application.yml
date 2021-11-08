@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: prometheus-basic
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+
+
+server:
+  port: 9080

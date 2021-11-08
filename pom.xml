@@ -26,6 +26,7 @@
         <module>redis-delay-list</module>
         <module>redis-sitecount</module>
         <module>redis-redission</module>
+        <module>prometheus-basic</module>
     </modules>
 
     <properties>
