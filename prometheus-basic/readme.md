@@ -18,3 +18,8 @@ rt 统计
 ```bash
 sum(rate(http_server_requests_seconds_sum{uri="/hello"}[10s])) / sum(rate(http_server_requests_seconds_count{uri="/hello"}[10s]))
 ```
+
+
+## 参考资料
+
+- [SpringBoot集成prometheus](https://www.cnblogs.com/xidianzxm/p/11542135.html)
