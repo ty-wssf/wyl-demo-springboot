@@ -27,6 +27,7 @@
         <module>redis-sitecount</module>
         <module>redis-redission</module>
         <module>prometheus-basic</module>
+        <module>prometheus-grafana-server</module>
     </modules>
 
     <properties>
