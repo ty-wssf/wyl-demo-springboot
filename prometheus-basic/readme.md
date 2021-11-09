@@ -23,3 +23,4 @@ sum(rate(http_server_requests_seconds_sum{uri="/hello"}[10s])) / sum(rate(http_s
 ## 参考资料
 
 - [SpringBoot集成prometheus](https://www.cnblogs.com/xidianzxm/p/11542135.html)
+- [基于Micrometer和Prometheus实现度量和监控的方案](https://juejin.cn/post/6847902218910334984#heading-5)
