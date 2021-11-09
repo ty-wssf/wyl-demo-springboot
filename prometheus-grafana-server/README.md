@@ -194,7 +194,7 @@ scrape_configs:
 
  
 
-**2.安装node-exporter插件，添加监控机器**
+**2.安装node-exporter插件，添加监控机器（linux）**
 
 下载链接：https://prometheus.io/download/  选择自己所需版本即可
 
@@ -243,7 +243,9 @@ scrape_configs:
 
 > 已经开始监控新的node
 
+**2.安装wmi-exporter插件，添加监控机器（windows）**
 
+- [Prometheus 监控Windows机器](https://www.cnblogs.com/gered/p/13523379.html)
 
 ## 参考资料
 
