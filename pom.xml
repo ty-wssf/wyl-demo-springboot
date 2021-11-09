@@ -28,6 +28,9 @@
         <module>redis-redission</module>
         <module>prometheus-basic</module>
         <module>prometheus-grafana-server</module>
+        <module>codahale-metrics</module>
+        <module>parameter-request-rapper</module>
+        <module>serialize-protostuff</module>
     </modules>
 
     <properties>
