@@ -28,6 +28,7 @@
         <module>redis-redission</module>
         <module>prometheus-basic</module>
         <module>prometheus-grafana-server</module>
+        <module>codahale-metrics</module>
     </modules>
 
     <properties>
