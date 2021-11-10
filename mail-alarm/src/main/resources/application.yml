@@ -1,0 +1,22 @@
+spring:
+  #QQ邮箱配置
+  mail:
+    host: smtp.qq.com
+    port: 465
+    protocol: smtp
+    # 使用自己的发送方用户名 + 授权码填充
+    username: 791128058@qq.com
+    password: csifhdnlcjfobceg
+    #default-encoding: UTF-8
+    from: 791128058@qq.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
+            required: true
+server:
+  port: 9080
