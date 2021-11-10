@@ -31,6 +31,8 @@
         <module>codahale-metrics</module>
         <module>parameter-request-rapper</module>
         <module>serialize-protostuff</module>
+        <module>mail-alarm</module>
+        <module>influxdb</module>
     </modules>
 
     <properties>
