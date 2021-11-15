@@ -33,6 +33,8 @@
         <module>serialize-protostuff</module>
         <module>mail-alarm</module>
         <module>influxdb</module>
+        <module>h2database</module>
+        <module>ehcache</module>
     </modules>
 
     <properties>

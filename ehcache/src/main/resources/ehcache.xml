@@ -1,0 +1,39 @@
+<config
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xmlns:jsr107='http://www.ehcache.org/v3/jsr107'>
+
+    <!--user.home：用户主目录
+       user.dir：用户当前的工作目录
+       java.io.tmpdir：默认临时路径-->
+    <!-- 持久缓存目录 persistence(持久性标记) 在持久性标记中，我们为硬盘(磁盘存储)上基于文件的缓存定义了目录。这只是文件夹的定义。-->
+    <persistence directory="user.dir/ehcache" />
+
+    <cache alias="image_count_cache" uses-template="defaultCache"> </cache>
+
+    <cache-template name="defaultCache">
+        <!--<expiry>
+            &lt;!&ndash; 在expires标签中，我们定义了3600秒的生存时间(ttl)。生存时间指定缓存条目独立于访问可以在缓存中保留多长时间。指定的时间过期后，将从缓存中删除该值。 &ndash;&gt;
+            <ttl unit="seconds">3600</ttl>
+        </expiry>-->
+        <listeners>
+            <listener>
+                <class>cn.demo.boot.ehcache.config.EhcacheLogger</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>UNORDERED</event-ordering-mode>
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <events-to-fire-on>UPDATED</events-to-fire-on>
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+                <events-to-fire-on>REMOVED</events-to-fire-on>
+            </listener>
+        </listeners>
+        <resources>
+            <!-- 对于堆上存储，我们配置了1,000个缓存条目的容量。这是开始删除缓存之前的最大条目数。 -->
+            <heap unit="entries">5</heap>
+            <!-- 对于堆外存储，我们配置了10mb的容量。 -->
+            <offheap unit="MB">1</offheap>
+            <!-- 作为磁盘缓存，我们配置了50mb 磁盘缓存必须始终具有比堆缓存更高的内存容量，否则应用程序在解析XML文件时在应用程序启动时抛出异常。 -->
+            <disk persistent="true" unit="MB">200</disk>
+        </resources>
+    </cache-template>
+</config>
