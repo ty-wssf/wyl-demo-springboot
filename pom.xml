@@ -35,6 +35,7 @@
         <module>influxdb</module>
         <module>h2database</module>
         <module>ehcache</module>
+        <module>longpolling</module>
     </modules>
 
     <properties>
